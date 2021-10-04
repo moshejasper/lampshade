@@ -44,12 +44,12 @@ lamp_frame <- function(dnastring, f3=NULL, f2=NULL, f1c=NULL, b1c=NULL, b2=NULL,
     lframe$b2pos <- primer_match(lframe, b2, "rc")
   }
   if (! is.null(f1c)) {
-    lframe <- primer_add(lframe, f1c, "c")
-    lframe$f1cpos <- primer_match(lframe, f1c, "c")
+    lframe <- primer_add(lframe, f1c, "rc")
+    lframe$f1cpos <- primer_match(lframe, f1c, "rc")
   }
   if (! is.null(b1c)) {
-    lframe <- primer_add(lframe, b1c, "r")
-    lframe$b1cpos <- primer_match(lframe, b1c, "r")
+    lframe <- primer_add(lframe, b1c, "f")
+    lframe$b1cpos <- primer_match(lframe, b1c, "f")
   }
   if (! is.null(lf)) {
     lframe <- primer_add(lframe, lf, "rc")
