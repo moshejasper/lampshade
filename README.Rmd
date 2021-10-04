@@ -34,7 +34,7 @@ And the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("moshejasper/lampshade")
 ```
-## Example
+## Load and Read DNA Objects
 
 Here we create a simple DNA container object
 
@@ -42,8 +42,85 @@ Here we create a simple DNA container object
 library(lampshade)
 ## basic example code
 
-dna_frame(random_sequence_generator(10))
+dframe <- dna_frame(random_sequence_generator(500))
+dframe
 ```
+
+Now, we are going to visualise this object as double-stranded DNA (mapped to a5 size)
+
+``` {r A5ds, out.width = "70%", fig.align = "center", fig.asp = 1.2}
+
+simple_dnagraph_double(dframe, family = "serif")
+
+```
+
+Next, we are going to use a custom DNA visualising font - a simple monochromatic font based on the ambiscript mosaic font described at https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-15-52. 
+First, we need to change our system settings to enable non-standard fonts, as we are going to be using a custom DNA font family. This change will temporarily give graphing control to a 3rd party program using the `dnagraph_setup()` command. We will restore control later using the `dnagraph_detach()` command. This process is optional, but needed if we wish to use the custom `DNAMosaic` font. 
+
+``` {r fontstart}
+dnagraph_setup()
+
+```
+
+Now, we generate the graph  using the custom DNA font, & the layout for a singlestranded view. The single-stranded view works well with the DNAMosaic font, as a 180 rotation of the sense yields the antisense strand. 
+
+``` {r A5custom, out.width = "70%", fig.align = "center", fig.asp = 1.2}
+
+simple_dnagraph_single(dframe, family = "DNAMosaic")
+dnagraph_detach()
+
+```
+
+## Load and read LAMP objects. 
+
+### 1. Manually. 
+
+In this section, we are going to load primer sequences based on a *wAlbB* assay developed for mosquitoes (see https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0225321 for source). 
+
+``` {r primer_load}
+
+wspseq <- "TGCCTATCACTCCATACGTTGGTGTTGGTGTTGGTGCAGCATATATCAGCAATCCTTCAGAAGCTAGTGCAGTTAAAGATCAAAAAGGATTTGGTTTTGCTTATCAAGCAAAAGCTGGTGTTAGTTATGATGTAACCCCAGAAATCAAGCTTTATGCTGGTGCTCGTTATTTTGGTTCTTATGGTGCTAGTTTTAATAAAGAAACAGTATCAGCTACTAAAG"
+
+wf3 <- "TGCCTATCACTCCATACGT"
+wb3 <- "CTTTAGTAGCTGATACTGTTTCT"
+wlb <- "CCAGAAATCAAGCTTTATGCTGGTG"
+wlf <- "CTTTAACTGCACTAGCTTCTGAAGG"
+wf1c <- "TGCTTGATAAGCAAAACCAAATCC"
+wf2 <- "TGGTGCAGCATATATCAGCAA"
+wb1c <- "AGCTGGTGTTAGTTATGATGTAACC"
+wb2 <- "CACCATAAGAACCAAAATAACGAG"
+
+```
+
+Now, we input them into a lamp primer list object
+
+``` {r lamp_load}
+
+wsp_lamp <- lamp_frame(wspseq, wf3, wf2, wf1c, wb1c, wb2, wb3, wlf, wlb)
+wsp_lamp
+
+```
+
+Next, we visualise this reaction first as ssDNA in normal fonts
+
+``` {r lampnormal, out.width = "70%", fig.align = "center", fig.asp = 1.2}
+lamp_dnagraph_single(wsp_lamp, family = "serif")
+```
+Primers are laid out with arrows describing direction. FIP & BIP component primers are linked, with F1c and B1c primers associated with their eventual target sites. 
+
+Finally, we visualise this reaction using the DNAMosaic script: 
+
+``` {r lampdna, out.width = "70%", fig.align = "center", fig.asp = 1.2}
+dnagraph_setup()
+lamp_dnagraph_single(wsp_lamp, family = "DNAMosaic")
+dnagraph_detach()
+```
+
+Note that with ambiscript, orientation is very important. Lines with arrows show single stranded DNA primer direction. To convert, the sequence should be read as if the line is ON TOP. (i.e. rotate so primer line is on top, then read left to right. rotate f1c & b1c sequences in line wiht the connecting arrow to produce the FIP & BIP primers.)
+
+## Primer Explorer Files
+
+Primer Explorer v5 PrimerInfo files can be loaded with the command `pe_load_primerinfo()` attaching the filepath. This produces a LampFrame object that can be graphed as above. 
 
 Moshe Jasper
 October 4, 2021
