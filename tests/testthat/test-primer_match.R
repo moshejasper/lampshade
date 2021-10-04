@@ -1,0 +1,11 @@
+test_that("Match primers to DNA frame", {
+  frametest <- dna_frame("gattaca")
+  frametest1 <- primer_match(frametest, "atta", "f")
+  frametest2 <- primer_match(frametest, "taat", "c")
+  frametest3 <- primer_match(frametest, "acat", "r")
+  frametest4 <- primer_match(frametest, "tgta", "rc")
+  expect_equal(frametest1, 2:5)
+  expect_equal(frametest2, 2:5)
+  expect_equal(frametest3, 4:7)
+  expect_equal(frametest4, 4:7)
+})

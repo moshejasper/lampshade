@@ -1,0 +1,49 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# lampshade
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of lampshade is to manipulate and visualise short DNA sequences and associated LAMP primers
+
+## Installation
+
+You can install the released version of lampshade from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("lampshade") # doesn't currently exist
+```
+
+And the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("moshejasper/lampshade")
+```
+## Example
+
+Here we create a simple DNA container object
+
+```{r example}
+library(lampshade)
+## basic example code
+
+dna_frame(random_sequence_generator(10))
+```
+
+Moshe Jasper
+October 4, 2021
