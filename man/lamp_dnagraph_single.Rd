@@ -9,7 +9,7 @@ lamp_dnagraph_single(
   rowcount = max_rowlength(nrow(dnaobj$seqdata)),
   size = 5 * 50/rowcount,
   sepr = 0.007 * size,
-  family = "DNAMosaic"
+  family = "serif"
 )
 }
 \arguments{

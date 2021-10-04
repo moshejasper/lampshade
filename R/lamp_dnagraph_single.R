@@ -13,7 +13,7 @@
 #' lframe <- lamp_frame("gattaca", f3 = "gatt", b3 = "tgta")
 #' lamp_dnagraph_single(lframe, family = "serif")
 lamp_dnagraph_single <- function(dnaobj, rowcount=max_rowlength(nrow(dnaobj$seqdata)), size=5*50/rowcount, 
-                                 sepr=.007*size, family = "DNAMosaic"){
+                                 sepr=.007*size, family = "serif"){
   dnaframe <- dnaobj$seqdata
   if (family == "DNAMosaic"){
     dnaframe <- mutate(dnaframe, cmp = .data$fwd)
@@ -155,14 +155,16 @@ lamp_dnagraph_single <- function(dnaobj, rowcount=max_rowlength(nrow(dnaobj$seqd
       yvals <- ndna_mat$ygrid
       ndna_mat1 <- filter(ndna_mat, .data$ygrid == max(yvals))
       gg <- gg + 
-        geom_text(data = ndna_mat1, mapping = aes(x = .data$xgrid, y = .data$ygrid - (sepr * 4), label = .data$fwd), 
+        geom_text(data = ndna_mat1, mapping = aes(x = .data$xgrid, y = .data$ygrid - (sepr * 4), 
+                                                  label = if (family == "DNAMosaic") .data$fwd else .data$cmp), 
                   size = size, family = family, colour = "green")+
         geom_line(data = ndna_mat1, mapping = aes(x = .data$xgrid, y = .data$ygrid - (sepr * 5.5)), colour = "green", 
                   size = size/10)
       ndna_mat <- filter(ndna_mat, .data$ygrid == min(yvals))
     }
     gg <- gg + 
-      geom_text(data = ndna_mat, mapping = aes(x = .data$xgrid, y = .data$ygrid - (sepr * 4), label = .data$fwd), 
+      geom_text(data = ndna_mat, mapping = aes(x = .data$xgrid, y = .data$ygrid - (sepr * 4), 
+                                               label = if (family == "DNAMosaic") .data$fwd else .data$cmp), 
                 size = size, family = family, colour = "green")+
       geom_line(data = ndna_mat, mapping = aes(x = .data$xgrid, y = .data$ygrid - (sepr * 5.5)), colour = "green", 
                 size = size/10)+
@@ -175,14 +177,16 @@ lamp_dnagraph_single <- function(dnaobj, rowcount=max_rowlength(nrow(dnaobj$seqd
       yvals <- ndna_mat$ygrid
       ndna_mat1 <- filter(ndna_mat, .data$ygrid == min(yvals))
       gg <- gg + 
-        geom_text(data = ndna_mat1, mapping = aes(x = .data$xgrid, y = .data$ygrid + (sepr * 4), label = .data$cmp), 
+        geom_text(data = ndna_mat1, mapping = aes(x = .data$xgrid, y = .data$ygrid + (sepr * 4), 
+                                                  label = if (family == "DNAMosaic") .data$cmp else .data$fwd), 
                   size = size, family = family, colour = "orange")+
         geom_line(data = ndna_mat1, mapping = aes(x = .data$xgrid, y = .data$ygrid + (sepr * 5)), colour = "orange", 
                   size = size/10)
       ndna_mat <- filter(ndna_mat, .data$ygrid == max(yvals))
     }
     gg <- gg + 
-      geom_text(data = ndna_mat, mapping = aes(x = .data$xgrid, y = .data$ygrid + (sepr * 4), label = .data$cmp), 
+      geom_text(data = ndna_mat, mapping = aes(x = .data$xgrid, y = .data$ygrid + (sepr * 4), 
+                                               label = if (family == "DNAMosaic") .data$cmp else .data$fwd), 
                 size = size, family = family, colour = "orange")+
       geom_line(data = ndna_mat, mapping = aes(x = .data$xgrid, y = .data$ygrid + (sepr * 5)), colour = "orange", 
                 size = size/10)+
