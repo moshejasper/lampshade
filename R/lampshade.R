@@ -1,11 +1,8 @@
 #'
 #' @import ggplot2
-#' @importFrom dplyr mutate filter
+#' @importFrom dplyr mutate filter if_else
 #' @importFrom magrittr `%>%`
+#' @importFrom readr read_lines
 #' @importFrom rlang .data
 #' @importFrom stats median
 NULL
-
-sysfonts::font_add("DNAMosaic", "inst/extdata/Dnamosaic-Regular-2.ttf")
-
-showtext::showtext_auto()
