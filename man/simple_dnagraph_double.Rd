@@ -9,7 +9,7 @@ simple_dnagraph_double(
   rowcount = max_rowlength(nrow(dnaobj$seqdata)),
   size = 5 * 50/rowcount,
   sepr = 0.035 * 50/rowcount,
-  family = "DNAMosaic",
+  family = "serif",
   upper = FALSE
 )
 }

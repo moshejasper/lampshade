@@ -13,7 +13,7 @@
 #' dframe <- dna_frame("gattaca")
 #' simple_dnagraph_single(dframe, family = "serif")
 simple_dnagraph_single <- function(dnaobj, rowcount=max_rowlength(nrow(dnaobj$seqdata)), size=5*50/rowcount, 
-                                   sepr=0.035 * 50 / rowcount, family = "DNAMosaic"){
+                                   sepr=0.035 * 50 / rowcount, family = "serif"){
   dnaframe <- dnaobj$seqdata
   sepr <- sepr/2
   if (nrow(dnaframe) %% rowcount == 0) {maxrow <- nrow(dnaframe) %/% rowcount}

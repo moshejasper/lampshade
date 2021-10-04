@@ -14,7 +14,7 @@
 #' dframe <- dna_frame("gattaca")
 #' simple_dnagraph_double(dframe, family = "serif")
 simple_dnagraph_double <- function(dnaobj, rowcount=max_rowlength(nrow(dnaobj$seqdata)), size=5*50/rowcount, 
-                            sepr=0.035 * 50 / rowcount, family = "DNAMosaic", upper = FALSE){
+                            sepr=0.035 * 50 / rowcount, family = "serif", upper = FALSE){
   
   
   dnaframe <- dnaobj$seqdata
